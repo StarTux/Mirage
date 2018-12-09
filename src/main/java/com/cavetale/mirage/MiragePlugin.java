@@ -16,6 +16,7 @@ public final class MiragePlugin extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        PacketListenerAPI.removePacketHandler(this.packetHandler);
     }
 
     @Override
