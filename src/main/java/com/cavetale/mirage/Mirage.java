@@ -139,19 +139,21 @@ public final class Mirage {
      */
     public void updateObserverList() {
         Location location = this.data.location.bukkitLocation();
+        if (location == null) throw new NullPointerException("invalid location");
         int cx = location.getBlockX() >> 4;
         int cz = location.getBlockZ() >> 4;
-        if (location == null) throw new NullPointerException("invalid location");
         Set<UUID> done = new HashSet<>();
         for (UUID observer: new ArrayList<>(this.observers)) {
             done.add(observer);
             Player player = Bukkit.getPlayer(observer);
             if (player == null) {
+                if (this.data.debug) debug("Removing null observer " + observer);
                 this.observers.remove(observer);
                 continue;
             }
             Location pl = player.getLocation();
             if (!pl.getWorld().equals(location.getWorld())) {
+                if (this.data.debug) debug("Removing observer who left world: " + player.getName());
                 this.observers.remove(observer);
                 continue;
             }
@@ -182,10 +184,7 @@ public final class Mirage {
      */
     public void addObserver(Player player) {
         if (this.observers.contains(player.getUniqueId())) return;
-        if (this.data.debug) {
-            this.debug("Add observer " + player.getName());
-            this.debug("Metadata " + new Gson().toJson(this.metadata));
-        }
+        if (this.data.debug) debug("Add observer " + player.getName());
         this.observers.add(player.getUniqueId());
         switch (this.data.type) {
         case PLAYER: {
@@ -390,16 +389,6 @@ public final class Mirage {
     public void setMetadata(DataVar key, Object value) {
         this.metadata.put(key, value);
         if (!this.observers.isEmpty()) sendObservers(entityMetadataPacket(key, value));
-        if (this.data.debug) {
-            String val;
-            if (value instanceof Optional) {
-                val = "Optional(" + ((Optional)value).orElse(null) + ")";
-            } else {
-                val = "" + value;
-            }
-            val = val.replace("" + ChatColor.COLOR_CHAR, "&");
-            debug("Set metadata " + key + "(" + key.index + ") to \"" + val + "\"");
-        }
     }
 
     /**
@@ -414,6 +403,6 @@ public final class Mirage {
     // --- Debug
 
     private void debug(String msg) {
-        this.plugin.getLogger().info("[Mirage " + this.getEntityId() + "] " + msg);
+        this.plugin.getLogger().info("[Mirage " + this.getEntityId() + "] (" + this.data.debugName + ") " + msg);
     }
 }

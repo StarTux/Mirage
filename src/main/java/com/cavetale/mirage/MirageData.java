@@ -30,13 +30,14 @@ public final class MirageData {
      * blocks).  This is optional and only effective when {@link
      * Mirage#updateObserverList()} is called.
      */
-    public int chunkViewDistance = 8;
+    public int chunkViewDistance = 3;
     /**
      * See {@link MirageData#chunkViewDistance}.
      */
-    public int chunkActivationRange = 7;
+    public int chunkActivationRange = 2;
     // Spam debug info
     public boolean debug = false;
+    public String debugName;
 
     public static final class Location {
         public String world;
