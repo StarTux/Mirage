@@ -1,0 +1,18 @@
+main: com.cavetale.mirage.MiragePlugin
+name: Mirage
+version: 0.1
+api-version: 1.13
+description: Display fake entities
+author: StarTux
+website: https://cavetale.com
+depend: [PacketListenerApi]
+softdepend: []
+commands:
+  mirage:
+    description: Debug command
+    permission: mirage.mirage
+    usage: |-
+      /<mirage>
+permissions:
+  mirage.mirage:
+    description: Use /mirage
