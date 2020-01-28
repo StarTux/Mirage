@@ -57,6 +57,7 @@
       <artifactId>paper</artifactId>
       <version>1.15.2-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
 
     <!-- Lombok -->
@@ -73,13 +74,15 @@
       <artifactId>dirty</artifactId>
       <version>0.1-SNAPSHOT</version>
       <scope>provided</scope>
+      <optional>true</optional>
     </dependency>
 
     <!-- Packet Listener API -->
     <dependency>
       <groupId>org.inventivetalent.packetlistener</groupId>
       <artifactId>api</artifactId>
-      <version>3.7.2-SNAPSHOT</version>
+      <version>3.7.5-SNAPSHOT</version>
+      <optional>true</optional>
     </dependency>
 
   </dependencies>
