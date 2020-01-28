@@ -1,7 +1,7 @@
 package com.cavetale.mirage;
 
 import lombok.RequiredArgsConstructor;
-import net.minecraft.server.v1_13_R2.PacketPlayInUseEntity;
+import net.minecraft.server.v1_15_R1.PacketPlayInUseEntity;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 import org.inventivetalent.packetlistener.handler.PacketHandler;

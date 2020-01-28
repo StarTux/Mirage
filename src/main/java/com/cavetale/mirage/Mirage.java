@@ -16,36 +16,38 @@ import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 import net.md_5.bungee.api.ChatColor;
-import net.minecraft.server.v1_13_R2.ChatComponentText;
-import net.minecraft.server.v1_13_R2.DataWatcher;
-import net.minecraft.server.v1_13_R2.Entity;
-import net.minecraft.server.v1_13_R2.EntityLiving;
-import net.minecraft.server.v1_13_R2.EntityPlayer;
-import net.minecraft.server.v1_13_R2.EntityTypes;
-import net.minecraft.server.v1_13_R2.EnumItemSlot;
-import net.minecraft.server.v1_13_R2.ItemStack;
-import net.minecraft.server.v1_13_R2.MinecraftServer;
-import net.minecraft.server.v1_13_R2.Packet;
-import net.minecraft.server.v1_13_R2.PacketPlayOutAnimation;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntity;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityDestroy;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityEquipment;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityHeadRotation;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityMetadata;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityTeleport;
-import net.minecraft.server.v1_13_R2.PacketPlayOutEntityVelocity;
-import net.minecraft.server.v1_13_R2.PacketPlayOutNamedEntitySpawn;
-import net.minecraft.server.v1_13_R2.PacketPlayOutPlayerInfo;
-import net.minecraft.server.v1_13_R2.PacketPlayOutSpawnEntity;
-import net.minecraft.server.v1_13_R2.PacketPlayOutSpawnEntityLiving;
-import net.minecraft.server.v1_13_R2.PlayerInteractManager;
-import net.minecraft.server.v1_13_R2.WorldServer;
+import net.minecraft.server.v1_15_R1.BlockPosition;
+import net.minecraft.server.v1_15_R1.ChatComponentText;
+import net.minecraft.server.v1_15_R1.DataWatcher;
+import net.minecraft.server.v1_15_R1.Entity;
+import net.minecraft.server.v1_15_R1.EntityLiving;
+import net.minecraft.server.v1_15_R1.EntityPlayer;
+import net.minecraft.server.v1_15_R1.EntityTypes;
+import net.minecraft.server.v1_15_R1.EnumItemSlot;
+import net.minecraft.server.v1_15_R1.EnumMobSpawn;
+import net.minecraft.server.v1_15_R1.ItemStack;
+import net.minecraft.server.v1_15_R1.MinecraftServer;
+import net.minecraft.server.v1_15_R1.Packet;
+import net.minecraft.server.v1_15_R1.PacketPlayOutAnimation;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntity;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityDestroy;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityEquipment;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityHeadRotation;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityMetadata;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityTeleport;
+import net.minecraft.server.v1_15_R1.PacketPlayOutEntityVelocity;
+import net.minecraft.server.v1_15_R1.PacketPlayOutNamedEntitySpawn;
+import net.minecraft.server.v1_15_R1.PacketPlayOutPlayerInfo;
+import net.minecraft.server.v1_15_R1.PacketPlayOutSpawnEntity;
+import net.minecraft.server.v1_15_R1.PacketPlayOutSpawnEntityLiving;
+import net.minecraft.server.v1_15_R1.PlayerInteractManager;
+import net.minecraft.server.v1_15_R1.WorldServer;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
-import org.bukkit.craftbukkit.v1_13_R2.CraftServer;
-import org.bukkit.craftbukkit.v1_13_R2.CraftWorld;
-import org.bukkit.craftbukkit.v1_13_R2.block.data.CraftBlockData;
-import org.bukkit.craftbukkit.v1_13_R2.inventory.CraftItemStack;
+import org.bukkit.craftbukkit.v1_15_R1.CraftServer;
+import org.bukkit.craftbukkit.v1_15_R1.CraftWorld;
+import org.bukkit.craftbukkit.v1_15_R1.block.data.CraftBlockData;
+import org.bukkit.craftbukkit.v1_15_R1.inventory.CraftItemStack;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.EquipmentSlot;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -92,7 +94,7 @@ public final class Mirage {
         }
         case MOB: {
             if (mirageData.entityType == null) throw new NullPointerException("mirageData.entityType cannot be null");
-            this.entity = EntityTypes.a(this.data.entityType.getName()).a(worldServer);
+            this.entity = EntityTypes.a(this.data.entityType.getName()).get().createCreature(worldServer, null, null, null, BlockPosition.ZERO, EnumMobSpawn.NATURAL, false, false);
             break;
         }
         case ITEM: {
@@ -266,9 +268,9 @@ public final class Mirage {
         if (!this.observers.isEmpty()) {
             sendObservers(new PacketPlayOutEntity
                           .PacketPlayOutRelEntityMove(this.entity.getId(),
-                                                      (long)(dx * 32.0 * 128.0),
-                                                      (long)(dy * 32.0 * 128.0),
-                                                      (long)(dz * 32.0 * 128.0),
+                                                      (short) (dx * 32.0 * 128.0),
+                                                      (short) (dy * 32.0 * 128.0),
+                                                      (short) (dz * 32.0 * 128.0),
                                                       this.onGround));
         }
     }
@@ -289,11 +291,11 @@ public final class Mirage {
         if (!this.observers.isEmpty()) {
             sendObservers(new PacketPlayOutEntity
                           .PacketPlayOutRelEntityMoveLook(this.entity.getId(),
-                                                          (long)(dx * 32.0 * 128.0),
-                                                          (long)(dy * 32.0 * 128.0),
-                                                          (long)(dz * 32.0 * 128.0),
-                                                          (byte)((int)(location.yaw * 256.0f / 360.0f)),
-                                                          (byte)((int)(location.pitch * 256.0f / 360.0f)),
+                                                          (short) (dx * 32.0 * 128.0),
+                                                          (short) (dy * 32.0 * 128.0),
+                                                          (short) (dz * 32.0 * 128.0),
+                                                          (byte) ((int) (location.yaw * 256.0f / 360.0f)),
+                                                          (byte) ((int) (location.pitch * 256.0f / 360.0f)),
                                                           this.onGround));
         }
     }

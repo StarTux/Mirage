@@ -1,14 +1,14 @@
 package com.cavetale.mirage;
 
 import java.util.Optional;
-import net.minecraft.server.v1_13_R2.BlockPosition;
-import net.minecraft.server.v1_13_R2.ChatComponentText;
-import net.minecraft.server.v1_13_R2.DataWatcherObject;
-import net.minecraft.server.v1_13_R2.EnumDirection;
-import net.minecraft.server.v1_13_R2.ItemStack;
-import net.minecraft.server.v1_13_R2.NBTTagCompound;
-import net.minecraft.server.v1_13_R2.Particles;
-import net.minecraft.server.v1_13_R2.Vector3f;
+import net.minecraft.server.v1_15_R1.BlockPosition;
+import net.minecraft.server.v1_15_R1.ChatComponentText;
+import net.minecraft.server.v1_15_R1.DataWatcherObject;
+import net.minecraft.server.v1_15_R1.EnumDirection;
+import net.minecraft.server.v1_15_R1.ItemStack;
+import net.minecraft.server.v1_15_R1.NBTTagCompound;
+import net.minecraft.server.v1_15_R1.Particles;
+import net.minecraft.server.v1_15_R1.Vector3f;
 
 public enum DataVar {
     ENTITY_FLAGS(0, DataType.BYTE, (byte)0), //mask
@@ -22,7 +22,7 @@ public enum DataVar {
     AREA_EFFECT_CLOUD_RADIUS(6, DataType.FLOAT, 0.5F),
     AREA_EFFECT_CLOUD_COLOR(7, DataType.INTEGER, 0),
     AREA_EFFECT_CLOUD_POINT(8, DataType.BOOLEAN, false),
-    AREA_EFFECT_CLOUD_PARTICLE(9, DataType.PARTICLE_PARAM, Particles.s),
+    AREA_EFFECT_CLOUD_PARTICLE(9, DataType.PARTICLE_PARAM, Particles.CLOUD),
     FISHING_HOOK_ENTITY(6, DataType.INTEGER, 0),
     ARROW_FLAGS(6, DataType.BYTE, (byte)0), //mask
     ARROW_SHOOTER(7, DataType.OPT_UUID, Optional.empty()),

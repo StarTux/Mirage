@@ -1,7 +1,7 @@
 package com.cavetale.mirage;
 
 import java.util.List;
-import net.minecraft.server.v1_13_R2.DataWatcher;
+import net.minecraft.server.v1_15_R1.DataWatcher;
 
 /**
  * A quick and dirty replacement for DataWatcher which returns
