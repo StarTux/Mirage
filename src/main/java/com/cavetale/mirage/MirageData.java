@@ -2,7 +2,6 @@ package com.cavetale.mirage;
 
 import java.util.UUID;
 import lombok.Data;
-import lombok.var;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.EntityType;

@@ -3,8 +3,8 @@ package com.cavetale.mirage;
 import java.util.Random;
 import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
-import net.minecraft.server.v1_15_R1.Packet;
-import org.bukkit.craftbukkit.v1_15_R1.entity.CraftPlayer;
+import net.minecraft.network.protocol.Packet;
+import org.bukkit.craftbukkit.v1_20_R3.entity.CraftPlayer;
 
 final class Players {
     private Players() { }

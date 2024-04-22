@@ -2,16 +2,16 @@ package com.cavetale.mirage;
 
 import java.util.Optional;
 import java.util.UUID;
-import net.minecraft.server.v1_15_R1.BlockPosition;
-import net.minecraft.server.v1_15_R1.DataWatcherRegistry;
-import net.minecraft.server.v1_15_R1.DataWatcherSerializer;
-import net.minecraft.server.v1_15_R1.EnumDirection;
-import net.minecraft.server.v1_15_R1.IBlockData;
-import net.minecraft.server.v1_15_R1.IChatBaseComponent;
-import net.minecraft.server.v1_15_R1.ItemStack;
-import net.minecraft.server.v1_15_R1.NBTTagCompound;
-import net.minecraft.server.v1_15_R1.ParticleParam;
-import net.minecraft.server.v1_15_R1.Vector3f;
+import net.minecraft.core.BlockPosition;
+import net.minecraft.core.EnumDirection;
+import net.minecraft.core.Vector3f;
+import net.minecraft.core.particles.ParticleParam;
+import net.minecraft.nbt.NBTTagCompound;
+import net.minecraft.network.chat.IChatBaseComponent;
+import net.minecraft.network.syncher.DataWatcherRegistry;
+import net.minecraft.network.syncher.DataWatcherSerializer;
+import net.minecraft.world.item.ItemStack;
+import net.minecraft.world.level.block.state.IBlockData;
 
 public final class DataType<T> {
     public static final DataType<Byte> BYTE = new DataType<>(DataWatcherRegistry.a);
